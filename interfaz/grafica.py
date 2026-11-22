@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 from fisica import refraccion as rf
- 
+from fisica import refelxion as rl
 def iniciar_ventana():
     ventana = tk.Tk()
 
@@ -53,13 +53,6 @@ def iniciar_ventana():
     menu_material_superior.current(2)  
     boton.pack()
     
-
-   
-
-    
-
-    
-
     def actualizar_rayo(valor):
         grados = float(valor)
         elegido_inferior = menu_material_inferior.get()
@@ -70,6 +63,8 @@ def iniciar_ventana():
         grafica.coords(rayo,x1,y1,400,300)
         x3,y3 = rf.calcularRayoRefractado(grados,indice_superior,indice_inferior)
         grafica.coords(rayo_refractado,400,300,x3,y3)
+        x4,y4 = rl.calcularReflexion(400,300,grados,300)
+        grafica.coords(rayo_reflectado,400,300,x4,y4)
 
     angulo = tk.Scale(ventana,from_=0,to=90,orient="horizontal",label="Angulo de incidencia",resolution=1,command=actualizar_rayo)
     angulo.pack()
@@ -77,24 +72,13 @@ def iniciar_ventana():
       
 
     x1,y1 = rf.calcularPuntos(400,300,angulo.get(),300)
-    rayo = grafica.create_line(x1,y1,400,300,fill="purple",width=2)
     x3,y3 = rf.calcularRayoRefractado(angulo.get(),1.0003,1.333)
+    x4,y4 = rl.calcularReflexion(400,300,angulo.get(),300)
 
-   
-
-
-   
-
-    
+    rayo = grafica.create_line(x1,y1,400,300,fill="purple",width=2)
     rayo_refractado = grafica.create_line(400,300,x3,y3,fill="purple",width=2)
+    rayo_reflectado = grafica.create_line(400,300,x4,y4,fill="purple",width=2)
 
-  
-
- 
-    
-
-
-   
     ventana.mainloop()
 
 
