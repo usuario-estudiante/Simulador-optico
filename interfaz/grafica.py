@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-from fisica import refelxion as rf
+from fisica import refraccion as rf
 
 """
 Esta función inicializa la ventana donde pintamos la grafica
@@ -25,6 +25,10 @@ def iniciar_ventana():
         grados = float(valor)
         x1,y1 = rf.calcularPuntos(400,300,grados,300)
         grafica.coords(rayo,x1,y1,400,300)
+        x3,y3 = rf.calcularRayoRefractado(grados,1.0003,1.333)
+        grafica.coords(rayo_refractado,400,300,x3,y3)
+
+
    
 
     angulo = tk.Scale(ventana,from_=0,to=90,orient="horizontal",label="Angulo de incidencia",resolution=1,command=actualizar_rayo)
@@ -32,7 +36,8 @@ def iniciar_ventana():
 
     x1,y1 = rf.calcularPuntos(400,300,angulo.get(),300)
     rayo = grafica.create_line(x1,y1,400,300,fill="purple",width=2)
-
+    x3,y3 = rf.calcularRayoRefractado(angulo.get(),1.0003,1.333)
+    rayo_refractado = grafica.create_line(400,300,x3,y3,fill="purple",width=2)
     materiales = {
         "Agua":{"color":"lightblue","n":1.33},
         "Aceite":{"color":"orange","n":1.47}
