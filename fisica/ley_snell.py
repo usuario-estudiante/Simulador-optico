@@ -1,5 +1,5 @@
 import math as m
-INCIDENCIA = 200
+INCIDENCIA = 300
 def __calcularX2(x1,y1,y2,angulo):
     x2 = x1 + ((y2 - y1)*(m.tan(m.radians(angulo))))
     return x2
